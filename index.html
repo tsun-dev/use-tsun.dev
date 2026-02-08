@@ -237,6 +237,7 @@
       margin:0 0 10px;
       font-size: clamp(22px, 2.6vw, 30px);
       letter-spacing: -.02em;
+      font-weight: 750;
     }
     .section p{
       margin:0 0 18px;
@@ -248,7 +249,7 @@
     .grid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      gap: 20px;
     }
     @media (max-width: 940px){ .grid{ grid-template-columns: 1fr; } }
 
@@ -256,19 +257,19 @@
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
-      padding: 16px;
+      padding: 20px;
       box-shadow: var(--shadow2);
     }
     .card:hover{ border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.05); }
     .kicker{
-      font-size: 12px;
-      letter-spacing: .12em;
+      font-size: 13px;
+      letter-spacing: .14em;
       text-transform: uppercase;
       color: rgba(234,240,255,.62);
       margin-bottom: 10px;
     }
     .card h3{ margin:0 0 8px; font-size: 16px; }
-    .card p{ margin:0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .card p{ margin:0; color: var(--muted); font-size: 15.5px; line-height: 1.7; }
     .tagrow{ margin-top: 10px; display:flex; flex-wrap:wrap; gap:8px; }
     .tag{
       font-family: var(--mono);
@@ -303,11 +304,40 @@
     }
     .price h3{ margin:0 0 6px; font-size: 18px; }
     .price .desc{ color: var(--muted); margin:0 0 12px; }
+
+    /* Pricing tier differentiation */
+    .price.free {
+      background: rgba(255,255,255,.035);
+      border-color: rgba(255,255,255,.10);
+    }
+    .price.free h3{ font-size: 17px; }
+    .price.free .amt{ opacity: .85; }
+
+    .price.pro {
+      background: linear-gradient(
+        180deg,
+        rgba(124,92,255,.18),
+        rgba(255,255,255,.04)
+      );
+      border-color: rgba(124,92,255,.35);
+      box-shadow: 0 22px 60px rgba(124,92,255,.25);
+    }
+    .price.pro h3{ font-size: 19px; }
+
+    .price.plus {
+      background: linear-gradient(
+        180deg,
+        rgba(45,226,230,.10),
+        rgba(255,255,255,.035)
+      );
+      border-color: rgba(45,226,230,.30);
+    }
+    .price.plus h3{ font-size: 18px; }
     .money{
       display:flex; align-items:baseline; gap:8px;
       margin: 12px 0 14px;
     }
-    .money .amt{ font-size: 34px; font-weight: 800; letter-spacing:-.03em; }
+    .money .amt{ font-size: 34px; font-weight: 850; letter-spacing:-.03em; }
     .money .per{ color: var(--muted2); }
     ul{ margin: 0; padding-left: 18px; color: var(--muted); }
     li{ margin: 8px 0; }
@@ -510,7 +540,7 @@ tsun scan --target https://staging.example.com \
           No per-seat pricing. No per-scan billing. Cancel anytime.
         </p>
         <div class="pricing">
-          <div class="price">
+          <div class="price free">
             <h3>Free</h3>
             <p class="desc">Authenticated ZAP scans that work in CI, forever.</p>
             <div class="money">
@@ -531,7 +561,7 @@ tsun scan --target https://staging.example.com \
             </div>
           </div>
 
-          <div class="price featured">
+          <div class="price featured pro">
             <h3>Pro Team</h3>
             <p class="desc">Baselines, deep scans, and noise-free CI for small teams.</p>
             <div class="money">
@@ -557,7 +587,7 @@ tsun scan --target https://staging.example.com \
             </div>
           </div>
 
-          <div class="price">
+          <div class="price plus">
             <h3>Pro Plus</h3>
             <p class="desc">Same power, prioritized for larger orgs.</p>
             <div class="money">
