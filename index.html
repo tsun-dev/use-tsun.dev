@@ -282,11 +282,12 @@
 
     .pricing{
       display:grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 14px;
       align-items:stretch;
     }
     @media (max-width: 940px){ .pricing{ grid-template-columns: 1fr; } }
+    @media (min-width: 941px) and (max-width: 1100px){ .pricing{ grid-template-columns: 1fr 1fr; } }
     .price{
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.12);
@@ -510,16 +511,19 @@ tsun scan --target https://staging.example.com \
         <div class="pricing">
           <div class="price">
             <h3>Free</h3>
-            <p class="desc">Run real ZAP scans locally or in CI.</p>
+            <p class="desc">Authenticated ZAP scans that work in CI, forever.</p>
             <div class="money">
               <div class="amt">$0</div>
               <div class="per">forever</div>
             </div>
             <ul>
-              <li>ZAP Docker scanning + mock mode</li>
-              <li>CI + Deep profiles</li>
-              <li>JSON / YAML / HTML / SARIF output</li>
-              <li>Basic severity filtering</li>
+              <li>Authenticated scans (headers, cookies, login hooks)</li>
+              <li>CI scan profile (~10–15 min runtime)</li>
+              <li>Managed ZAP lifecycle (Docker auto-start/cleanup)</li>
+              <li>JSON + SARIF output</li>
+              <li>Exit-code gating for CI</li>
+              <li>Scan tuning (timeout, URL limits, attack strength)</li>
+              <li>Works fully offline, no account required</li>
             </ul>
             <div style="margin-top:14px;">
               <a class="btn" href="https://github.com/tsun-dev/tsun/releases/latest" target="_blank" rel="noreferrer">Download</a>
@@ -527,30 +531,51 @@ tsun scan --target https://staging.example.com \
           </div>
 
           <div class="price featured">
-            <h3>Pro</h3>
-            <p class="desc">Unlock workflow features teams pay for.</p>
+            <h3>Pro Team</h3>
+            <p class="desc">Baselines, deep scans, and noise-free CI for small teams.</p>
             <div class="money">
-              <div class="amt">$29</div>
-              <div class="per">/ app / month (starting)</div>
+              <div class="amt">$199</div>
+              <div class="per">/ month</div>
             </div>
             <ul>
-              <li>Baseline comparisons + diff summaries</li>
-              <li>CI gating policies tuned for low noise</li>
-              <li>Authenticated scanning helpers (premium workflows)</li>
-              <li>Better diagnostics for flaky scans</li>
+              <li>Everything in Free, plus:</li>
+              <li>Baseline comparisons (new/fixed/unchanged vulns)</li>
+              <li>Severity + CVSS deltas over time</li>
+              <li>Deep scan profile (60–120 min runtime)</li>
+              <li>Custom scan profiles</li>
+              <li>HTML + YAML output formats</li>
+              <li>GitHub SARIF upload (Code Scanning integration)</li>
+              <li>CI noise reduction + graceful fallbacks</li>
             </ul>
             <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn primary" href="mailto:support@use-tsun.dev?subject=Tsun%20Pro%20Interest">Request Pro Access</a>
+              <a class="btn primary" href="mailto:support@use-tsun.dev?subject=Tsun%20Pro%20Team%20Interest">Request Access</a>
               <a class="btn" href="#faq">Questions?</a>
             </div>
-            <div class="fine">Exact tiers can evolve as Tsun ships. Keep it simple early.</div>
+          </div>
+
+          <div class="price">
+            <h3>Pro Plus</h3>
+            <p class="desc">Same power, prioritized for larger orgs.</p>
+            <div class="money">
+              <div class="amt">$399</div>
+              <div class="per">/ month</div>
+            </div>
+            <ul>
+              <li>Everything in Pro Team</li>
+              <li>Priority onboarding + support</li>
+              <li>Intended for higher-frequency CI usage</li>
+              <li>Best for teams of 25–50 devs</li>
+            </ul>
+            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn primary" href="mailto:support@use-tsun.dev?subject=Tsun%20Pro%20Plus%20Interest">Request Access</a>
+              <a class="btn" href="#faq">Questions?</a>
+            </div>
           </div>
         </div>
       </section>
 
       <section class="section reveal" id="faq">
         <h2>FAQ</h2>
-        <p>Short answers to the stuff engineers actually ask before adopting a scanner.</p>
 
         <div class="faq">
           <details>
