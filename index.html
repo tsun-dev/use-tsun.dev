@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tsun - Developer-First DAST Powered by OWASP ZAP</title>
+  <meta name="description" content="CLI-first DAST scanner for small SaaS teams. Handles auth, baselines, and noise by default." />
+  <meta name="robots" content="index,follow" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      padding: 60px 40px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.22);
+    }
+
+    h1 {
+      font-size: 2.7rem;
+      margin-bottom: 0.5rem;
+      color: #667eea;
+      letter-spacing: -0.02em;
+    }
+
+    .tagline {
+      font-size: 1.25rem;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .notice {
+      background: #f8f9fa;
+      border: 1px solid #e5e7eb;
+      border-left: 4px solid #667eea;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      margin: 1.25rem 0 2.25rem 0;
+      color: #444;
+    }
+
+    .notice strong { color: #333; }
+
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 650;
+      transition: all 0.2s ease;
+      display: inline-block;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #333;
+      border-color: #ddd;
+    }
+
+    .btn-secondary:hover { background: #e9e9e9; }
+
+    h2 {
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: #333;
+      font-size: 1.75rem;
+    }
+
+    .features {
+      list-style: none;
+      margin-bottom: 1.75rem;
+    }
+
+    .features li {
+      padding: 0.55rem 0;
+      padding-left: 1.6rem;
+      position: relative;
+    }
+
+    .features li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #667eea;
+      font-weight: bold;
+    }
+
+    .why {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 2rem 0;
+      border-left: 4px solid #667eea;
+    }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin: 1.75rem 0;
+    }
+
+    .plan {
+      border: 2px solid #e5e5e5;
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: all 0.2s ease;
+      background: #fff;
+    }
+
+    .plan:hover {
+      border-color: #667eea;
+      transform: translateY(-4px);
+      box-shadow: 0 6px 18px rgba(102, 126, 234, 0.18);
+    }
+
+    .plan h3 { color: #667eea; margin-bottom: 0.25rem; }
+
+    .plan .price {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 0.9rem 0 0.8rem 0;
+      letter-spacing: -0.02em;
+    }
+
+    .plan .subtle { color: #666; font-size: 0.95rem; margin-bottom: 0.9rem; }
+
+    .plan ul { list-style: none; margin-top: 0.5rem; }
+    .plan ul li { padding: 0.3rem 0; font-size: 0.95rem; }
+
+    .pill {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4f46e5;
+      border: 1px solid #dbeafe;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+
+    pre {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 1.25rem 1.35rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.92rem;
+    }
+
+    .links {
+      margin-top: 0.5rem;
+      color: #444;
+    }
+
+    .links a {
+      color: #667eea;
+      text-decoration: none;
+    }
+
+    .links a:hover { text-decoration: underline; }
+
+    .footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #e5e5e5;
+      text-align: center;
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .footer a { color: #667eea; text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    .fineprint {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-top: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Tsun</h1>
+    <p class="tagline">Developer-first DAST powered by OWASP ZAP — without CI pain.</p>
+
+    <div class="buttons">
+      <a href="https://github.com/tsun-dev/tsun" class="btn btn-primary">View on GitHub</a>
+      <a href="#pricing" class="btn btn-secondary">Pricing</a>
+    </div>
+
+    <div class="notice">
+      <strong>Pricing is coming soon.</strong>
+      <div class="fineprint">
+        You can use Tsun for free today. Pro will unlock baseline comparisons, deep scans, and noise-reduction features designed for CI.
+      </div>
+    </div>
+
+    <h2>What it is</h2>
+    <ul class="features">
+      <li>CLI-first DAST scanner for small SaaS teams</li>
+      <li>Runs locally or in CI</li>
+      <li>Handles auth, baselines, and noise by default</li>
+    </ul>
+
+    <div class="why">
+      <strong>Why it exists:</strong>
+      <p>ZAP is powerful, but painful to run in CI. Tsun makes authenticated ZAP scans repeatable, debuggable, and sustainable for real teams.</p>
+    </div>
+
+    <h2 id="pricing">Free vs Pro</h2>
+    <div class="pricing">
+      <div class="plan">
+        <h3>Free</h3>
+        <div class="price">$0</div>
+        <p class="subtle">For evaluation and basic CI scanning.</p>
+        <ul>
+          <li>✓ Authenticated scans</li>
+          <li>✓ CI profile (10–15 min)</li>
+          <li>✓ JSON + SARIF output</li>
+          <li>✓ Exit-code gating</li>
+          <li>✓ Managed ZAP lifecycle</li>
+        </ul>
+      </div>
+
+      <div class="plan">
+        <h3>Pro</h3>
+        <div class="price">Coming soon <span class="pill">Self-serve</span></div>
+        <p class="subtle">Everything in Free, plus CI noise reduction.</p>
+        <ul>
+          <li>✓ <strong>Baseline comparisons</strong> (new/fixed/unchanged)</li>
+          <li>✓ Deep scans (60–120 min)</li>
+          <li>✓ Custom profiles</li>
+          <li>✓ HTML/YAML reports</li>
+          <li>✓ GitHub SARIF upload</li>
+          <li>✓ Graceful fallbacks (no hard failures)</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="text-align: center; margin: 1.75rem 0; color: #666;">
+      <strong>No sales calls. Self-serve. Cancel anytime.</strong>
+    </p>
+
+    <h2>Quick Start</h2>
+    <pre><code># Install: download from GitHub Releases
+# https://github.com/tsun-dev/tsun/releases
+
+tsun scan --target https://example.com
+</code></pre>
+
+    <div class="links">
+      <p>
+        Download binaries from
+        <a href="https://github.com/tsun-dev/tsun/releases">GitHub Releases</a>.
+      </p>
+      <p class="fineprint">
+        (Homebrew install is not available yet.)
+      </p>
+    </div>
+
+    <div class="footer">
+      <p>Tsun is founder-built and maintained.</p>
+      <p>Questions or feedback? <a href="https://github.com/tsun-dev/tsun/issues">Open a GitHub issue</a>.</p>
+    </div>
+  </div>
+</body>
+</html>
