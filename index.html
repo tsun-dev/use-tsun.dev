@@ -439,10 +439,11 @@
           </div>
           <div class="glowline"></div>
           <div class="panelInner">
-<pre id="installCmd"><span class="hint"># Install from GitHub Releases</span>
-# macOS/Linux (amd64)
-curl -L https://github.com/tsun-dev/tsun/releases/latest/download/tsun-$(uname -s)-$(uname -m) -o tsun
-chmod +x tsun && sudo mv tsun /usr/local/bin/
+<pre id="installCmd"><span class="hint"># Install from GitHub Releases (macOS/Linux)</span>
+os=$(uname -s | tr '[:upper:]' '[:lower:]'); [ "$os" = "darwin" ] && os=macos
+arch=$(uname -m); [ "$arch" = "arm64" ] && arch=aarch64
+curl -fL "https://github.com/tsun-dev/tsun/releases/latest/download/tsun-${os}-${arch}.tar.gz" | tar -xz
+sudo install -m 0755 tsun /usr/local/bin/tsun
 
 <span class="hint"># run a CI-scoped scan</span>
 tsun scan --target https://staging.example.com \
