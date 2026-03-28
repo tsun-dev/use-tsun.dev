@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Tsun is a developer-first DAST CLI powered by OWASP ZAP—auth-friendly, CI-ready, and affordable for small teams." />
+  <meta name="description" content="Tsun is a developer-first DAST CLI powered by OWASP ZAP—auth-friendly, CI-ready, and free for small teams." />
   <meta property="og:title" content="Tsun — Developer-first DAST for CI" />
   <meta property="og:description" content="ZAP-powered scanning with auth, baselines, SARIF, and CI profiles. Built for small SaaS teams." />
   <meta property="og:type" content="website" />
   <title>Tsun — Developer-first DAST for CI</title>
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
     :root{
-      --bg0:#070A12;
-      --bg1:#0B1020;
+      --bg0:#121212;
+      --bg1:#0d0d0d;
       --card:rgba(255,255,255,.04);
       --card2:rgba(255,255,255,.06);
       --stroke:rgba(255,255,255,.10);
@@ -20,20 +22,20 @@
       --text:#EAF0FF;
       --muted:rgba(234,240,255,.72);
       --muted2:rgba(234,240,255,.55);
-      --accent1:#7C5CFF; /* violet */
-      --accent2:#2DE2E6; /* cyan */
+      --accent1:#00D4AA;
+      --accent2:#00F5D4;
       --good:#59F3A6;
       --warn:#F7C948;
       --bad:#FF5C7A;
 
-      --radius:18px;
-      --shadow: 0 18px 50px rgba(0,0,0,.55);
-      --shadow2: 0 10px 24px rgba(0,0,0,.45);
+      --radius:8px;
+      --shadow: none;
+      --shadow2: none;
       --max: 1120px;
       --pad: clamp(18px, 3vw, 28px);
       --pad2: clamp(14px, 2.2vw, 20px);
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --sans: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
     }
 
     *{ box-sizing:border-box; }
@@ -42,11 +44,7 @@
       margin:0;
       font-family:var(--sans);
       color:var(--text);
-      background:
-        radial-gradient(900px 420px at 18% 10%, rgba(124,92,255,.22), transparent 55%),
-        radial-gradient(820px 520px at 86% 14%, rgba(45,226,230,.16), transparent 55%),
-        radial-gradient(700px 420px at 52% 92%, rgba(255,92,122,.10), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
+      background: var(--bg0);
       overflow-x:hidden;
     }
 
@@ -63,17 +61,14 @@
     }
     .logo{
       width:34px; height:34px; border-radius:10px;
-      background:
-        radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.25), transparent 60%),
-        linear-gradient(135deg, rgba(124,92,255,.9), rgba(45,226,230,.85));
-      box-shadow: 0 10px 28px rgba(124,92,255,.25);
+      background: var(--accent1);
       border:1px solid rgba(255,255,255,.18);
     }
     .navlinks{ display:flex; gap:14px; align-items:center; }
     .navlinks a{
       color:var(--muted);
       padding:8px 10px;
-      border-radius:10px;
+      border-radius:var(--radius);
       border:1px solid transparent;
       transition: .18s ease;
       font-size:14px;
@@ -87,7 +82,7 @@
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding: 10px 14px;
-      border-radius: 12px;
+      border-radius: var(--radius);
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.04);
       color: var(--text);
@@ -98,13 +93,13 @@
       user-select:none;
       white-space:nowrap;
     }
-    .btn:hover{ background: rgba(255,255,255,.06); transform: translateY(-1px); }
+    .btn:hover{ background: rgba(255,255,255,.06); }
     .btn.primary{
-      border-color: rgba(124,92,255,.35);
-      background: linear-gradient(135deg, rgba(124,92,255,.85), rgba(45,226,230,.55));
-      box-shadow: 0 18px 42px rgba(124,92,255,.18);
+      border-color: rgba(0,212,170,.35);
+      background: rgba(0,212,170,.9);
+      box-shadow: none;
     }
-    .btn.primary:hover{ filter: brightness(1.05); }
+    .btn.primary:hover{ background: rgba(0,212,170,1); }
     .btn.ghost{
       background: transparent;
     }
@@ -123,7 +118,7 @@
     .badge{
       display:inline-flex; align-items:center; gap:10px;
       padding: 8px 12px;
-      border-radius: 999px;
+      border-radius: var(--radius);
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
       color: var(--muted);
@@ -131,8 +126,7 @@
     }
     .dot{
       width:9px; height:9px; border-radius:999px;
-      background: linear-gradient(135deg, var(--accent1), var(--accent2));
-      box-shadow: 0 0 0 5px rgba(124,92,255,.10);
+      background: var(--accent1);
     }
 
     h1{
@@ -160,7 +154,7 @@
     }
     .check{
       margin-top:2px;
-      width:18px; height:18px; border-radius:6px;
+      width:18px; height:18px; border-radius:var(--radius);
       background: rgba(89,243,166,.12);
       border:1px solid rgba(89,243,166,.28);
       display:flex; align-items:center; justify-content:center;
@@ -180,19 +174,10 @@
     .panel{
       border-radius: var(--radius);
       border: 1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-      box-shadow: var(--shadow);
+      background: rgba(255,255,255,.05);
+      box-shadow: none;
       overflow:hidden;
       position:relative;
-    }
-    .panel::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(500px 220px at 70% 20%, rgba(45,226,230,.12), transparent 55%),
-                  radial-gradient(540px 240px at 30% 0%, rgba(124,92,255,.18), transparent 55%);
-      pointer-events:none;
-      filter: blur(10px);
-      opacity:.85;
     }
     .panelInner{ position:relative; padding: 16px; }
 
@@ -226,7 +211,7 @@
     }
     .glowline{
       height:1px;
-      background: linear-gradient(90deg, transparent, rgba(124,92,255,.55), rgba(45,226,230,.55), transparent);
+      background: linear-gradient(90deg, transparent, rgba(0,212,170,.55), rgba(0,245,212,.55), transparent);
       opacity:.55;
     }
 
@@ -237,7 +222,6 @@
       margin:0 0 10px;
       font-size: clamp(22px, 2.6vw, 30px);
       letter-spacing: -.02em;
-      font-weight: 750;
     }
     .section p{
       margin:0 0 18px;
@@ -249,98 +233,55 @@
     .grid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 14px;
     }
     @media (max-width: 940px){ .grid{ grid-template-columns: 1fr; } }
 
     .card{
-      border-radius: 16px;
+      border-radius: var(--radius);
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
-      padding: 20px;
-      box-shadow: var(--shadow2);
+      padding: 16px;
+      box-shadow: none;
     }
     .card:hover{ border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.05); }
     .kicker{
-      font-size: 13px;
-      letter-spacing: .14em;
+      font-size: 12px;
+      letter-spacing: .12em;
       text-transform: uppercase;
       color: rgba(234,240,255,.62);
       margin-bottom: 10px;
     }
     .card h3{ margin:0 0 8px; font-size: 16px; }
-    .card p{ margin:0; color: var(--muted); font-size: 15.5px; line-height: 1.7; }
+    .card p{ margin:0; color: var(--muted); font-size: 14px; line-height: 1.6; }
     .tagrow{ margin-top: 10px; display:flex; flex-wrap:wrap; gap:8px; }
     .tag{
       font-family: var(--mono);
       font-size: 12px;
       padding: 6px 8px;
-      border-radius: 999px;
+      border-radius: var(--radius);
       border: 1px solid rgba(255,255,255,.10);
       color: rgba(234,240,255,.72);
       background: rgba(255,255,255,.03);
     }
 
-    .pricing{
+    .community{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 14px;
-      align-items:stretch;
+      align-items: stretch;
     }
-    @media (max-width: 940px){ .pricing{ grid-template-columns: 1fr; } }
-    @media (min-width: 941px) and (max-width: 1100px){ .pricing{ grid-template-columns: 1fr 1fr; } }
-    .price{
-      border-radius: 18px;
+    @media (max-width: 940px){ .community{ grid-template-columns: 1fr; } }
+
+    .comm-card{
+      border-radius: var(--radius);
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
-      padding: 18px;
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
+      padding: 24px;
+      box-shadow: none;
     }
-    .price.featured{
-      border-color: rgba(124,92,255,.28);
-      background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(255,255,255,.03));
-    }
-    .price h3{ margin:0 0 6px; font-size: 18px; }
-    .price .desc{ color: var(--muted); margin:0 0 12px; }
-
-    /* Pricing tier differentiation */
-    .price.free {
-      background: rgba(255,255,255,.035);
-      border-color: rgba(255,255,255,.10);
-    }
-    .price.free h3{ font-size: 17px; }
-    .price.free .amt{ opacity: .85; }
-
-    .price.pro {
-      background: linear-gradient(
-        180deg,
-        rgba(124,92,255,.18),
-        rgba(255,255,255,.04)
-      );
-      border-color: rgba(124,92,255,.35);
-      box-shadow: 0 22px 60px rgba(124,92,255,.25);
-    }
-    .price.pro h3{ font-size: 19px; }
-
-    .price.plus {
-      background: linear-gradient(
-        180deg,
-        rgba(45,226,230,.10),
-        rgba(255,255,255,.035)
-      );
-      border-color: rgba(45,226,230,.30);
-    }
-    .price.plus h3{ font-size: 18px; }
-    .money{
-      display:flex; align-items:baseline; gap:8px;
-      margin: 12px 0 14px;
-    }
-    .money .amt{ font-size: 34px; font-weight: 850; letter-spacing:-.03em; }
-    .money .per{ color: var(--muted2); }
-    ul{ margin: 0; padding-left: 18px; color: var(--muted); }
-    li{ margin: 8px 0; }
+    .comm-card h3{ margin:0 0 8px; font-size: 20px; }
+    .comm-card p{ color: var(--muted); margin: 0 0 16px; line-height: 1.6; }
 
     .faq{
       display:grid;
@@ -351,7 +292,7 @@
     details{
       border:1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
-      border-radius: 14px;
+      border-radius: var(--radius);
       padding: 12px 14px;
     }
     summary{
@@ -375,7 +316,6 @@
       margin-top: 44px;
     }
 
-    /* subtle entrance */
     .reveal{ opacity:0; transform: translateY(10px); transition: .6s ease; }
     .reveal.on{ opacity:1; transform: translateY(0); }
   </style>
@@ -394,7 +334,7 @@
 
       <nav class="navlinks">
         <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
+        <a href="#community">Community</a>
         <a href="#faq">FAQ</a>
         <a class="btn ghost" href="https://github.com/tsun-dev/tsun" target="_blank" rel="noreferrer">GitHub</a>
         <a class="btn primary" href="#install">Install</a>
@@ -409,7 +349,7 @@
           <h1>DAST that engineers will actually keep in the pipeline.</h1>
           <p class="sub">
             Tsun runs real OWASP ZAP scans with sane defaults: auth-friendly, low-noise CI profiles, baselines, and SARIF.
-            Built for small SaaS teams that don’t want enterprise overhead.
+            Free and open source, built for small SaaS teams that don't want enterprise overhead.
           </p>
 
           <div class="bullets">
@@ -421,13 +361,9 @@
 
           <div class="ctaRow" id="install">
             <a class="btn primary" href="https://github.com/tsun-dev/tsun/releases/latest" target="_blank" rel="noreferrer">Download Latest Release</a>
-            <a class="btn" href="#pricing">See pricing</a>
             <a class="btn ghost" href="#features">How it works</a>
           </div>
 
-          <div class="fine">
-            Free CLI available. Pro unlocks CI guardrails and advanced workflow features.
-          </div>
         </div>
 
         <div class="panel reveal">
@@ -439,18 +375,17 @@
           </div>
           <div class="glowline"></div>
           <div class="panelInner">
-<pre id="installCmd"><span class="hint"># Install from GitHub Releases (macOS/Linux)</span>
-os=$(uname -s | tr '[:upper:]' '[:lower:]'); [ "$os" = "darwin" ] && os=macos
-arch=$(uname -m); [ "$arch" = "arm64" ] && arch=aarch64
-curl -fL "https://github.com/tsun-dev/tsun/releases/latest/download/tsun-${os}-${arch}.tar.gz" | tar -xz
-sudo install -m 0755 tsun /usr/local/bin/tsun
+<pre id="installCmd"><span class="hint"># Install from GitHub Releases</span>
+# macOS/Linux (amd64)
+curl -L https://github.com/tsun-dev/tsun/releases/latest/download/tsun-$(uname -s)-$(uname -m) -o tsun
+chmod +x tsun && sudo mv tsun /usr/local/bin/
 
 <span class="hint"># run a CI-scoped scan</span>
 tsun scan --target https://staging.example.com \
   --profile ci --min-severity medium --exit-on-severity high \
   --format sarif --output report.sarif
 
-<span class="hint"># compare to a baseline (pro)</span>
+<span class="hint"># compare to a baseline</span>
 tsun scan --target https://staging.example.com \
   --baseline baseline.json --format html --output report.html</pre>
           </div>
@@ -461,7 +396,7 @@ tsun scan --target https://staging.example.com \
         <h2>Built for small teams running real apps</h2>
         <p>
           Tsun is a CLI-first wrapper around OWASP ZAP with pragmatic defaults and guardrails.
-          You get reliable scans, useful output, and CI workflows that don’t create permanent red builds.
+          You get reliable scans, useful output, and CI workflows that don't create permanent red builds.
         </p>
 
         <div class="grid">
@@ -512,7 +447,7 @@ tsun scan --target https://staging.example.com \
           <div class="card">
             <div class="kicker">Managed ZAP</div>
             <h3>Docker lifecycle handled</h3>
-            <p>Auto port selection, health checks, cleanup on Ctrl+C—so CI doesn’t get messy.</p>
+            <p>Auto port selection, health checks, cleanup on Ctrl+C—so CI doesn't get messy.</p>
             <div class="tagrow">
               <span class="tag">--keep-zap</span>
               <span class="tag">health checks</span>
@@ -533,80 +468,25 @@ tsun scan --target https://staging.example.com \
         </div>
       </section>
 
-      <section class="section reveal" id="pricing">
-        <h2>Pricing that won’t punish small teams</h2>
+      <section class="section reveal" id="community">
+        <h2>Open source &amp; community supported</h2>
         <p>
-          Start with the free CLI. Upgrade when you want cleaner CI workflows, stronger guardrails, and less noise.
-        </p>        <p style="margin:-8px 0 18px; color: var(--muted2);">
-          No per-seat pricing. No per-scan billing. Cancel anytime.
+          Tsun is free and open-source. If it saves your team time, consider supporting the project—every contribution helps keep it maintained and improving.
         </p>
-        <div class="pricing">
-          <div class="price free">
-            <h3>Free</h3>
-            <p class="desc">Authenticated ZAP scans that work in CI, forever.</p>
-            <div class="money">
-              <div class="amt">$0</div>
-              <div class="per">forever</div>
-            </div>
-            <ul>
-              <li>Authenticated scans (headers, cookies, login hooks)</li>
-              <li>CI scan profile (~10–15 min runtime)</li>
-              <li>Managed ZAP lifecycle (Docker auto-start/cleanup)</li>
-              <li>JSON + SARIF output</li>
-              <li>Exit-code gating for CI</li>
-              <li>Scan tuning (timeout, URL limits, attack strength)</li>
-              <li>Runs locally. No account required.</li>
-            </ul>
-            <div style="margin-top:14px;">
-              <a class="btn" href="https://github.com/tsun-dev/tsun/releases/latest" target="_blank" rel="noreferrer">Download</a>
-            </div>
+
+        <div class="community">
+          <div class="comm-card">
+            <h3>⭐ Star &amp; contribute on GitHub</h3>
+            <p>Browse the source, open issues, submit PRs, or just give us a star. Community contributions are what make open source tools thrive.</p>
+            <a class="btn primary" href="https://github.com/tsun-dev/tsun" target="_blank" rel="noreferrer">View on GitHub</a>
           </div>
 
-          <div class="price featured pro">
-            <h3>Pro Team</h3>
-            <p class="desc">Baselines, deep scans, and noise-free CI for small teams.</p>
-            <div class="money">
-              <div class="amt">$199</div>
-              <div class="per">/ month</div>
-            </div>
-            <ul>
-              <li>Everything in Free, plus:</li>
-              <li>Baseline comparisons (new/fixed/unchanged vulns)</li>
-              <li>Severity deltas over time (trend: improved/unchanged/regressed)</li>
-              <li>Deep scan profile (60–120 min runtime)</li>
-              <li>Advanced scan profiles (custom tuning + longer runs)</li>
-              <li>HTML + YAML output formats</li>
-              <li>GitHub SARIF upload (Code Scanning integration)</li>
-              <li>CI noise reduction + graceful fallbacks</li>
-            </ul>
-            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn primary" href="mailto:support@use-tsun.dev?subject=Tsun%20Pro%20Team%20Waitlist&body=Hi%20-%20I%27m%20interested%20in%20Tsun%20Pro%20Team.%0A%0ACompany%3A%0ATeam%20size%3A%0ACI%20platform%3A%20(GitHub%20Actions%2FGitLab%2Fother)%0ATarget%20type%3A%20(staging%2Fpreview%2Fother)%0A%0AWhat%20I%27d%20like%20Pro%20for%3A%0A">Join Pro waitlist</a>
-              <a class="btn" href="#faq">Questions?</a>
-            </div>
-            <div style="margin-top:10px; color: var(--muted2); font-size: 13px;">
-              Early access: we're onboarding a small number of teams while we finalize self-serve checkout.
-            </div>
-          </div>
-
-          <div class="price plus">
-            <h3>Pro Plus</h3>
-            <p class="desc">Same power, prioritized for larger orgs.</p>
-            <div class="money">
-              <div class="amt">$399</div>
-              <div class="per">/ month</div>
-            </div>
-            <ul>
-              <li>Everything in Pro Team</li>
-              <li>Priority onboarding + support</li>
-              <li>Intended for higher-frequency CI usage</li>
-              <li>Best for teams of 25–50 devs</li>
-            </ul>
-            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn primary" href="mailto:support@use-tsun.dev?subject=Tsun%20Pro%20Plus%20Waitlist&body=Hi%20-%20I%27m%20interested%20in%20Tsun%20Pro%20Plus.%0A%0ACompany%3A%0ATeam%20size%3A%0ACI%20platform%3A%20(GitHub%20Actions%2FGitLab%2Fother)%0ATarget%20type%3A%20(staging%2Fpreview%2Fother)%0A%0AWhat%20I%27d%20like%20Pro%20for%3A%0A">Join Pro waitlist</a>
-              <a class="btn" href="#faq">Questions?</a>
-            </div>
-            <div style="margin-top:10px; color: var(--muted2); font-size: 13px;">
-              Early access: we're onboarding a small number of teams while we finalize self-serve checkout.
+          <div class="comm-card">
+            <h3>💜 Sponsor the project</h3>
+            <p>If Tsun is useful to you or your team, consider sponsoring via GitHub Sponsors or Open Collective. It helps fund ongoing development and maintenance.</p>
+            <div class="ctaRow">
+              <a class="btn" href="https://github.com/sponsors/tsun-dev" target="_blank" rel="noreferrer">GitHub Sponsors</a>
+              <a class="btn ghost" href="mailto:support@use-tsun.dev">Get in touch</a>
             </div>
           </div>
         </div>
@@ -629,8 +509,8 @@ tsun scan --target https://staging.example.com \
             <p>No. Tsun can run ZAP in Docker and manages lifecycle, ports, health checks, and cleanup automatically.</p>
           </details>
           <details>
-            <summary>What makes Pro worth it?</summary>
-            <p>Pro focuses on workflow: baselines, noise control, CI guardrails, and better diagnostics—so teams keep scanning enabled.</p>
+            <summary>Is it really free?</summary>
+            <p>Yes—completely. No paywalls, no feature tiers, no account required. All features are available to everyone.</p>
           </details>
         </div>
       </section>
@@ -653,10 +533,10 @@ tsun scan --target https://staging.example.com \
     </main>
 
     <footer>
-      <div>© <span id="year"></span> Tsun. Built for engineers.</div>
+      <div>© <span id="year"></span> Tsun. Built for engineers. Open source.</div>
       <div style="display:flex; gap:14px; flex-wrap:wrap;">
         <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
+        <a href="#community">Community</a>
         <a href="#faq">FAQ</a>
         <a href="https://github.com/tsun-dev/tsun" target="_blank" rel="noreferrer">GitHub</a>
         <a href="mailto:support@use-tsun.dev">Email</a>
@@ -665,7 +545,6 @@ tsun scan --target https://staging.example.com \
   </div>
 
   <script>
-    // minimal niceties: year + reveal on scroll
     document.getElementById('year').textContent = new Date().getFullYear();
     const els = [...document.querySelectorAll('.reveal')];
     const io = new IntersectionObserver((entries) => {
